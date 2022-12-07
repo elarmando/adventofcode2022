@@ -26,6 +26,21 @@ public:
 		play = _play;
 	}
 
+	void setPlayAsRock()
+	{
+		setPlay(rock);
+	}
+
+	void setPlayAsScissor()
+	{
+		setPlay(scissor);
+	}
+
+	void setPlayAsPapper()
+	{
+		setPlay(papper);
+	}
+
 	bool isRock()
 	{
 		return play == rock;
@@ -76,6 +91,38 @@ int get_shape_score(Play& myPlay)
 		return 3;
 }
 
+void decryptMyPlay(char encriptedPlay, Play& enemyPlay, Play& myPlay)
+{
+	if (encriptedPlay == 'X')//I should loose
+	{
+		if (enemyPlay.isRock())
+			myPlay.setPlayAsScissor();
+		else if (enemyPlay.isPapper())
+			myPlay.setPlayAsRock();
+		else if (enemyPlay.isScissor())
+			myPlay.setPlayAsPapper();
+	}
+	else if (encriptedPlay == 'Y')//I should draw
+	{
+		if (enemyPlay.isRock())
+			myPlay.setPlayAsRock();
+		else if (enemyPlay.isScissor())
+			myPlay.setPlayAsScissor();
+		else if (enemyPlay.isPapper())
+			myPlay.setPlayAsPapper();
+	}
+	else if (encriptedPlay == 'Z')//I should win
+	{
+		if (enemyPlay.isRock())
+			myPlay.setPlayAsPapper();
+		else if (enemyPlay.isPapper())
+			myPlay.setPlayAsScissor();
+		else if (enemyPlay.isScissor())
+			myPlay.setPlayAsRock();
+
+	}
+}
+
 int score(Play& enemyPlay, Play& myPlay)
 {
 	int score = 0;
@@ -109,6 +156,35 @@ void solve_2(const std::string &pathinput)
 
 		enemyPlay.setPlay(enemy_play);
 		myPlay.setPlay(me_play);
+
+		myScore += score(enemyPlay, myPlay);
+		std::cout << "enemy play: " << enemy_play << ", " << "my play: " << me_play << std::endl;
+	}
+
+	std::cout << "Total score " << myScore;
+}
+
+void solve_2_2(const std::string& pathinput)
+{
+	std::ifstream ifile(pathinput.c_str());
+	std::string line;
+
+	Play enemyPlay('A', 'B', 'C');
+	Play myPlay('X', 'Y', 'Z');
+	int myScore = 0;
+
+	while (std::getline(ifile, line))
+	{
+		std::stringstream str(line);
+		char enemy_play, me_play;
+
+		str >> enemy_play;
+		str >> me_play;
+
+		enemyPlay.setPlay(enemy_play);
+		myPlay.setPlay(me_play);
+
+		decryptMyPlay(me_play, enemyPlay, myPlay);
 
 		myScore += score(enemyPlay, myPlay);
 		std::cout << "enemy play: " << enemy_play << ", " << "my play: " << me_play << std::endl;

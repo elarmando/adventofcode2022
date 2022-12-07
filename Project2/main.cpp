@@ -11,7 +11,8 @@ int main()
 
 	//solve_1(folder + "1.txt");
 	//solve_1_2(folder + "1.txt");
-	solve_2(folder + "2.txt");
+//	solve_2(folder + "2.txt");
+	solve_2_2(folder + "2.txt");
 	std::cin.get();
 }
 
