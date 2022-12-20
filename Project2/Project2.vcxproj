@@ -146,11 +146,14 @@
     <Text Include="input\1_test.txt" />
     <Text Include="input\2.txt" />
     <Text Include="input\2_test.txt" />
+    <Text Include="input\3.txt" />
+    <Text Include="input\3_test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="problem1.h" />
     <ClInclude Include="problem1_2.h" />
     <ClInclude Include="problem2.h" />
+    <ClInclude Include="problem3.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
